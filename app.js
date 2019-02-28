@@ -7,6 +7,7 @@ const phrases = ['under the weather', 'heads up', 'jumping the gun', 'rain on yo
 const phraseArray = getRandomPhraseAsArray(phrases);
 const letters = document.getElementsByClassName('letter');
 const heart = document.getElementsByTagName('img');
+const letterShown = document.getElementsByClassName('show');
 //Attach a event listener to the “Start Game” button to hide the start screen overlay.
 document.addEventListener('click', function() {
   overlay.style.display = 'none';
@@ -19,6 +20,13 @@ function getRandomPhraseAsArray(arr){
 }
 
 getRandomPhraseAsArray(phrases);
+
+function checkWin() {
+  if(letters.length === letterShown.length) {
+    overlay.className = "win";
+  }
+}
+
 
 function addPhraseToDisplay(arr){
     // do stuff any arr that is passed in, and add to `#phrase ul`
@@ -59,5 +67,5 @@ qwerty.addEventListener('click', (e) => {
 
  		}
  	}
-
+  checkWin();
  });
