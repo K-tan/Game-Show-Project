@@ -8,6 +8,7 @@ const phraseArray = getRandomPhraseAsArray(phrases);
 const letters = document.getElementsByClassName('letter');
 const heart = document.getElementsByTagName('img');
 const letterShown = document.getElementsByClassName('show');
+const title = document.querySelector('.title');
 //Attach a event listener to the “Start Game” button to hide the start screen overlay.
 document.addEventListener('click', function() {
   overlay.style.display = 'none';
@@ -21,11 +22,7 @@ function getRandomPhraseAsArray(arr){
 
 getRandomPhraseAsArray(phrases);
 
-function checkWin() {
-  if(letters.length === letterShown.length) {
-    overlay.className = "win";
-  }
-}
+
 
 
 function addPhraseToDisplay(arr){
@@ -54,6 +51,21 @@ function checkLetter(btn){
     }
   }
   return correct;
+  }
+
+function checkWin() {
+    if(letters.length === letterShown.length) {
+      // // overlay.style.display = "";
+      // // overlay.className = "win";
+      // title.innerHTML = "<h1>You Win!</h1>";
+      overlay.style.display = 'win';
+      console.log('win');
+    } else if (missed >= 5) {
+      // overlay.style.display = "";
+   		// overlay.className = "lose";
+      // title.innerHTML = "<h1>Game Over!</h1>";
+      console.log("lose")
+    }
   }
 
 qwerty.addEventListener('click', (e) => {
