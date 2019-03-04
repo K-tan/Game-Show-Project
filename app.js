@@ -1,24 +1,29 @@
 const qwerty = document.getElementById('qwerty');
-const phrase = document.getElementById('phrase');
-let missed = 0; //if the player guesses wrong 5 times, they lose the game
 const overlay = document.getElementById('overlay');
-const resetBtn = document.getElementById('btn__reset');
-const phrases = ['under the weather', 'heads up', 'jumping the gun', 'rain on your parade', 'close but no cigar'];
-const phraseArray = getRandomPhraseAsArray(phrases);
+const phrase = document.getElementById('phrase');
 const letters = document.getElementsByClassName('letter');
+const resetBtn = document.getElementById('btn__reset');
+let phrases = ['under the weather', 'heads up', 'jumping the gun', 'rain on your parade', 'close but no cigar'];
 const heart = document.getElementsByTagName('img');
-const letterShown = document.getElementsByClassName('show');
-const title = document.querySelector('.title');
+const start = document.querySelector('.btn__reset');
+const lettersShown = document.getElementsByClassName('show');
+let missed = 0; //if the player guesses wrong 5 times, they lose the game
+
+
+
+
 //Attach a event listener to the “Start Game” button to hide the start screen overlay.
-document.addEventListener('click', function() {
-  overlay.style.display = 'none';
+start.addEventListener('click', function() {
+  overlay.style.display = ('none');
 });
+
 
 function getRandomPhraseAsArray(arr){
   //do stuff to any arr that is passed in
     let randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
     return randomPhrase;
-}
+};
+
 
 getRandomPhraseAsArray(phrases);
 
@@ -38,35 +43,39 @@ function addPhraseToDisplay(arr){
             li.className = "space";
         }
     }
-}
+};
 
+const phraseArray = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseArray);
 
 function checkLetter(btn){
   let correct = false;
   for(let i = 0; i < letters.length; i += 1) {
     if(btn.target.textContent === letters[i].textContent){
-      letters[i].classList.add("show");
+      letters[i].classList.add('show');
       correct = true;
     }
   }
   return correct;
   }
 
-function checkWin() {
-    if(letters.length === letterShown.length) {
-      // // overlay.style.display = "";
-      // // overlay.className = "win";
-      // title.innerHTML = "<h1>You Win!</h1>";
-      overlay.style.display = 'win';
-      console.log('win');
-    } else if (missed >= 5) {
-      // overlay.style.display = "";
-   		// overlay.className = "lose";
-      // title.innerHTML = "<h1>Game Over!</h1>";
-      console.log("lose")
-    }
+
+function checkWin(){
+
+  if(letters.length === lettersShown.length) {
+    overlay.style.display = "flex";
+    overlay.className = "win";
+    start.textContent = "Play Again";
+    
+    console.log('winner');
+  } else {
+
+    if (missed === 5) {
+      console.log('loser');
   }
+  }
+};
+
 
 qwerty.addEventListener('click', (e) => {
     const letterFound = checkLetter(e);
@@ -76,7 +85,6 @@ qwerty.addEventListener('click', (e) => {
       if (letterFound === false && missed < 5) {
  			heart[missed].setAttribute('src', 'images/lostHeart.png');
  			missed++;
-
  		}
  	}
   checkWin();
