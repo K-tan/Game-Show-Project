@@ -93,6 +93,7 @@ button {
 }
 
 .show {
+  transition-duration: 2s;
   color: #000;
   background-color: #76CE82;
 }

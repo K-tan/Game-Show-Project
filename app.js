@@ -8,9 +8,12 @@ const heart = document.getElementsByTagName('img');
 const start = document.querySelector('.btn__reset');
 const lettersShown = document.getElementsByClassName('show');
 let missed = 0; //if the player guesses wrong 5 times, they lose the game
+const title = document.querySelector('h2.title');
 
-
-
+//function to reload page and refresh settings to start
+function reloadPage(){
+  window.location.reload();
+}
 
 //Attach a event listener to the “Start Game” button to hide the start screen overlay.
 start.addEventListener('click', function() {
@@ -59,24 +62,32 @@ function checkLetter(btn){
   return correct;
   }
 
-
+//check if game is won with correct letters matching those shown.
+//check to see if game is lost if missed reaches 5.
+//new buttons to allow the game to be reset
 function checkWin(){
-
   if(letters.length === lettersShown.length) {
     overlay.style.display = "flex";
     overlay.className = "win";
+    title.textContent = "You Win!"
     start.textContent = "Play Again";
-    
-    console.log('winner');
+    start.addEventListener("click", function() {
+      reloadPage();
+    });
   } else {
-
     if (missed === 5) {
-      console.log('loser');
+      overlay.style.display = "flex";
+      overlay.className = "lose";
+      title.textContent = "You Lose!"
+      start.textContent = "Try Again";
+      start.addEventListener("click", function() {
+      reloadPage();
+    });
   }
   }
 };
 
-
+//click event listener to select letters and match those shown
 qwerty.addEventListener('click', (e) => {
     const letterFound = checkLetter(e);
   if (e.target.tagName === 'BUTTON') {
